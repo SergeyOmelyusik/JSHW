@@ -3,10 +3,10 @@ document.write('Задание №4 : Найдите сумму чисел в к
 let a = 5,
     sum = 0;
 
-for (i = 1; i <= a; i++) {
+for (let i = 1; i <= a; i++) {
    sum = 0;
    
-   for (j = 1; j <= i; j++) {
+   for (let j = 1; j <= i; j++) {
        sum += j;
    }
 

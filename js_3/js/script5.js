@@ -13,7 +13,7 @@ document.write( '<br/>');
 
 
 document.write('Цикл FOR' + '<br/>');
-for(i=8; i <= 56; i++) {
+for(let i=8; i <= 56; i++) {
     if(i % 2 == 0) {
         document.write( i + ' ');
     }
