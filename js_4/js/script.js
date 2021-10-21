@@ -159,7 +159,7 @@ let arr5 = [5, 9, 21, , , 9, 78, , , , 6],
 console.log(arr5);
 
 for (let i = 0; i < arr5.length; i++) {
-if(arr5[i] == null) {
+if(arr5[i] == undefined) {
     col++;
 }
 }
