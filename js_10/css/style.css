@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 22px;
+}
+
+.container {
+    padding: 5%;
+}
+
+.container.block{
+    background-color: #594fd8;
+    color:#ffffff;
+}
+
+.list {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn_click {
+    border: 0;
+    background-color: #62bbee;
+    color: #ffffff;
+    font-size: 25px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
