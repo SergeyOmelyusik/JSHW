@@ -1,0 +1,58 @@
+@media(max-width:1024px) {
+
+.notes__item {
+    margin: 15px 10px;
+ }
+
+}
+
+@media(max-width:768px) {
+
+    .notes__list {
+        justify-content: center;
+    }  
+
+    .notes__form {
+        width: 30%;
+    }
+    
+}
+
+@media(max-width:426px) {
+
+    .notes {
+        flex-direction: column;
+        align-items: center;  
+        padding: 30px 0px 30px 0;
+    }
+
+    .notes__form {
+        width: 80%;
+        border-right: none;
+        border-bottom: 2px solid #8f90ae;
+        position: static;
+    }
+
+    .notes__form input,
+    .notes__form textarea {
+        text-align: center;
+}
+
+    .notes__form textarea {
+        height: 70px;
+        line-height: 42px;
+    }
+
+    .notes__btn_add {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-left: 5px;
+
+    }
+
+    .notes__btn_add img {
+        display: none;
+    }
+}
+

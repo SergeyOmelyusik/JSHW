@@ -1,0 +1,176 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+.notes {
+    padding: 30px;
+    height: 100%;
+    background-color: #f7f7fb;
+    opacity: 0.8;
+    background-size: 44px 44px;
+    background-image:  repeating-linear-gradient(0deg, #8f90ae, #8f90ae 2.2px, #f7f7fb 2.2px, #f7f7fb);
+    text-align: center;
+    display: flex;
+    min-height: 700px;
+}
+
+.notes__title {
+    font-size: 48px;
+    text-align: center;
+    background-color:rgba(17, 51, 122, 0.867);
+    color: #fff;
+    padding: 20px 0;
+}
+
+.notes__form {
+    position: sticky;
+    top:20px;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-right: 2px solid #8f90ae;
+}
+
+.notes__form input,
+.notes__form textarea {
+    font-family: 'Fuzzy Bubbles', cursive;
+    font-size: 30px;
+    margin-bottom: 15px;
+    border:none;
+    background-color: transparent;
+    border: 3px solid transparent;
+}
+
+.notes__form input:focus,
+.notes__form textarea:focus{
+    outline: none;
+    border: 3px solid #8f90ae;
+
+}
+
+.notes__form input {
+    font-weight: bold;
+}
+
+.notes__form textarea {
+    height: 250px;
+    line-height: 42px;
+}
+
+.notes__btn_add {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Fuzzy Bubbles', cursive;
+    border: 0;
+    font-size: 35px;
+    width: 100%;
+    text-align: left;
+    background-color:transparent;
+    background-repeat: no-repeat;
+    background-position: right center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.notes__btn_add img {
+    margin-top: -20px;
+    margin-bottom: -20px;
+    transition: all 0.5s;
+}
+
+.notes__btn_add:hover .arrow  {
+    margin-left: 30px;
+}
+
+.notes__list {
+    width: 75%;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px; 
+}
+
+.notes__item {
+    position: relative;
+    font-family: 'Fuzzy Bubbles', cursive;
+    height: 300px;
+    width: 300px;
+    background:#ffc;
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    margin: 10px 25px;
+    font-size: 22px;
+    background-image:url(/images/pushpin.png);
+    background-repeat: no-repeat;
+    padding: 0 10px;
+}
+
+.notes__item:nth-child(even) {
+    transform:rotate(4deg);
+    position:relative;
+    top:5px;
+  }
+
+.notes__item:nth-of-type(3n) {
+    transform:rotate(-3deg);
+  }
+  
+  .notes__item:nth-child(5n) {
+    transform:rotate(5deg);
+  }
+
+.notes__item_title {
+    font-weight: bold;
+    text-decoration: underline;
+    word-wrap: break-word;
+    margin-top: 50px;
+   
+}
+
+.notes__item_content {
+    min-height: 100px;
+    word-wrap: break-word;
+}
+
+.notes__item_btns {
+    display: flex;
+    width: 100%;
+    position: absolute;
+    bottom: 10px;
+    justify-content: center;
+
+}
+
+.notes__item_btn_edit,
+.notes__item_btn_remove{
+    background-color:transparent;
+    border:2px solid #000;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-repeat: no-repeat;
+    background-position:center;
+    cursor: pointer;
+}
+
+.notes__item_btn_edit {
+    background-image:url(/images/pencil.png);
+    margin-right: 10px;
+}
+
+.notes__item_btn_remove {
+    background-image:url(/images/delete.png);
+    margin-left: 10px;
+}
+
+
