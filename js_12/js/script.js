@@ -29,9 +29,11 @@ class User {
 class Contacts {
 
     data = [];
+    lastId = 0;
 
     add(obj) {
         let user = new User(obj);
+        user.data.id = ++this.lastId;
         this.data.push(user);
     }
 
@@ -66,8 +68,6 @@ class ContactsApp extends Contacts {
     constructor() {
         super();
 
-        this.id = 1;
-
         this.elem.classList.add('container')
         this.body.append(this.elem);
 
@@ -91,13 +91,45 @@ class ContactsApp extends Contacts {
     }
 
     onAdd() {
+
         let contact = {};
 
-        contact.id = this.id;
+        let form = document.querySelector('.add__form');
+
         contact.name = document.querySelector('.name').value;
         contact.address = document.querySelector('.address').value;
-        contact.email = document.querySelector('.email').value;
-        contact.phone = document.querySelector('.phone').value;
+
+        let phone = document.querySelector('.phone').value;   
+
+        const validateNumber = function(number) {
+            var regexp = /^(\+)?((\d{2,3}))(([ -]?\d)|( ?(\d{2,3}) ?)){5,12}$/; 
+            return regexp.test(number);
+        }
+
+        if (validateNumber(phone) == true) {
+            contact.phone = phone;
+        } else {
+            alert('Invalide Phone! Please try again')
+            form.classList.remove('hidden');
+            return;
+        }
+        
+
+        let email = document.querySelector('.email').value;
+
+        const validateEmail = function(email) {
+            var str = /([A-Za-z0-9_\-\.]{3,})+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,12})$/;
+    
+            return str.test(email);
+        }
+
+        if (validateEmail(email) == true) {
+            contact.email = email;
+        } else {
+            alert('Invalide Email! Please try again')
+            form.classList.remove('hidden');
+            return;
+        }    
 
         document.querySelector('.name').value = "";
         document.querySelector('.address').value = "";
@@ -105,7 +137,7 @@ class ContactsApp extends Contacts {
         document.querySelector('.phone').value = "";
 
         super.add(contact);
-        this.id++
+        
     };
 
     onEdit(editItem) {
@@ -134,6 +166,7 @@ class ContactsApp extends Contacts {
     }
 
     get() {
+
         let contactsInfo = super.get();
 
         let contacts = document.querySelector('.contacts');
@@ -143,9 +176,12 @@ class ContactsApp extends Contacts {
         }
 
         contactsInfo.forEach(item =>  this.show(item));
+
+        this.storage = contactsInfo;
     }
 
     show(item) {
+        
         let contactItem = document.createElement('div');
         contactItem.classList.add('contact__item');
 
@@ -195,7 +231,6 @@ class ContactsApp extends Contacts {
             });
 
             let editItem = event.target.closest('.contact__item').dataset.id;
-            console.log(editItem)
             
 
             let saveBtn = document.querySelector('.save');
@@ -218,12 +253,56 @@ class ContactsApp extends Contacts {
                     editPopup.remove();
                 }
 
-                setTimeout(removeMsg, 2000);
+                setTimeout(removeMsg, 1000);
             }); 
         });
 
-        deleteBtn.addEventListener('click', (event) => this.onRemove()); 
+        deleteBtn.addEventListener('click', (event) => this.onRemove());
 
+    }
+
+     getCookie(name) {
+        let matches = document.cookie.match(new RegExp(
+          "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+      }
+
+    setCookie(name, value, options = {}) {
+
+        options = {
+          path: '/',
+          // при необходимости добавьте другие значения по умолчанию
+          ...options
+        };
+      
+        if (options.expires instanceof Date) {
+          options.expires = options.expires.toUTCString();
+        }
+      
+        let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+      
+        for (let optionKey in options) {
+          updatedCookie += "; " + optionKey;
+          let optionValue = options[optionKey];
+          if (optionValue !== true) {
+            updatedCookie += "=" + optionValue;
+          }
+        }
+      
+        document.cookie = updatedCookie;
+      }
+
+    set storage(contactsInfo) {
+        localStorage.setItem('contactsLocalData', JSON.stringify(contactsInfo));
+
+        this.setCookie('localDataExp', 1, {'max-age': 10000});
+    }
+
+    get storage() {
+        let locData = localStorage.getItem('contactsLocalData');
+        if(!locData) return [];
+        return JSON.parse(locData);
     }
 
     init() {
@@ -231,6 +310,7 @@ class ContactsApp extends Contacts {
         let btnAdd = document.querySelector('.btn_add');
         let btnAdded = document.querySelector('.btn__added');
         let form = document.querySelector(".add__form");
+        let msg = document.querySelector('.validate__msg');
        
         btnAdd.addEventListener('click', function() {
             form.classList.toggle('hidden')}) ;
@@ -241,11 +321,27 @@ class ContactsApp extends Contacts {
 
             this.onAdd(event);
             this.get();
-
         });
-    };
-}
 
+        let localData = this.storage;
+
+        let localDataExp = this.getCookie('localDataExp');
+
+        if(!localDataExp) this.storage = [];
+        
+        if(localData.length > 0) {
+            this.storage.forEach(contact => {
+                this.add(contact.data)
+            }
+            ) 
+        } 
+
+
+        this.get();
+        
+    };
+    
+}
 
 let contact = new ContactsApp();
 contact.init();
