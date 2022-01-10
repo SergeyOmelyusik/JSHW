@@ -1,0 +1,1 @@
+if(gallery) gallery();
